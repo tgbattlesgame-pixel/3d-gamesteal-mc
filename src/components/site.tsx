@@ -101,6 +101,7 @@ export function Footer() {
         <div>
           <img src={logo} alt="GAMERSTEAL MC" className="h-16 w-auto" loading="lazy" />
           <p className="mt-3 text-sm text-muted-foreground">{SERVER.mode} • {SERVER.season}</p>
+          <p className="mt-1 text-sm text-muted-foreground">Owner / Dev: <span className="font-semibold text-foreground">{SERVER.owner}</span></p>
         </div>
         <div className="flex flex-col gap-2 text-sm">
           <Link to="/" className="text-muted-foreground hover:text-foreground">Home</Link>
@@ -113,7 +114,7 @@ export function Footer() {
           <DiscordButton label="Join our Discord" />
         </div>
       </div>
-      <p className="border-t border-border py-6 text-center text-xs text-muted-foreground">© 2026 GAMERSTEAL. All rights reserved. Not affiliated with Mojang or Microsoft.</p>
+      <p className="border-t border-border py-6 text-center text-xs text-muted-foreground">Powered by <span className="font-bold text-foreground">{SERVER.poweredBy}</span> • Owner/Dev {SERVER.owner} • © 2026 GAMERSTEAL. All rights reserved. Not affiliated with Mojang or Microsoft.</p>
     </footer>
   );
 }
@@ -191,7 +192,7 @@ export function ProductGrid({ products }: { products: Product[] }) {
   const [sel, setSel] = useState<Product | null>(null);
   return (
     <>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((p) => <ProductCard key={p.id} p={p} onDetails={setSel} />)}
       </div>
       <ProductModal p={sel} onClose={() => setSel(null)} />
