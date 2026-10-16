@@ -3,7 +3,7 @@ import hero from "@/assets/hero-bg.jpg";
 import logo from "@/assets/gamersteal-logo.png";
 import { RANKS, KEYS, SERVER } from "@/lib/products";
 import { btn, CopyIP, DiscordButton, ProductGrid, SectionTitle } from "@/components/site";
-import { Crown, KeyRound, Heart } from "lucide-react";
+import { Crown, KeyRound, Heart, ShoppingCart, Ticket, MessageSquareText, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -66,8 +66,29 @@ function Index() {
       </section>
 
       <section id="keys" className="mx-auto max-w-7xl px-4 py-12">
-        <SectionTitle eyebrow="Loot awaits" title="CRATE KEYS" sub="Prices and rewards coming soon." />
+        <SectionTitle eyebrow="Loot awaits" title="CRATE KEYS" sub="Five tiers of loot — from Secret to Gamer." />
         <ProductGrid products={KEYS} />
+      </section>
+
+      <section id="how-to-buy" className="mx-auto max-w-7xl px-4 py-12">
+        <SectionTitle eyebrow="Simple & fast" title="HOW TO BUY" sub="Get your rank or keys in a few easy steps." />
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            { icon: ShoppingCart, t: "1. Pick your items", d: "Add ranks or crate keys to your cart and head to checkout." },
+            { icon: Ticket, t: "2. Create a ticket", d: "Open a ticket in our Discord server — our team is always there to help." },
+            { icon: MessageSquareText, t: "3. Share your details", d: "Tell us your Minecraft username (Java or Bedrock) and what you're buying." },
+            { icon: Sparkles, t: "4. Pay & get your gear", d: "Pay using the method our team shares, and your rank or keys are delivered in-game." },
+          ].map(({ icon: I, t, d }) => (
+            <div key={t} className="glass rounded-2xl p-6 transition hover:shadow-glow">
+              <I className="h-8 w-8 text-primary" />
+              <h3 className="mt-4 text-lg font-bold uppercase tracking-wider">{t}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">{d}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-8 text-center">
+          <DiscordButton label="Create a ticket on Discord" className={btn.primary} />
+        </div>
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-16">
