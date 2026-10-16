@@ -6,9 +6,9 @@ export const Route = createFileRoute("/ranks")({
   head: () => ({
     meta: [
       { title: "Ranks — GAMERSTEAL Store" },
-      { name: "description", content: "Buy ETERNAL, ELITE, DIVINE and GAMER ranks for GAMERSTEAL LifeSteal SMP." },
+      { name: "description", content: "Buy DESTROYER, IMMORTAL, DIVINE, KING, DEADLIEST and GAMER ranks for GAMERSTEAL LifeSteal SMP. From ₹100." },
       { property: "og:title", content: "Ranks — GAMERSTEAL Store" },
-      { property: "og:description", content: "ETERNAL, ELITE, DIVINE and the ultimate GAMER rank." },
+      { property: "og:description", content: "DESTROYER, IMMORTAL, DIVINE, KING, DEADLIEST and the ultimate GAMER rank." },
     ],
   }),
   component: () => (

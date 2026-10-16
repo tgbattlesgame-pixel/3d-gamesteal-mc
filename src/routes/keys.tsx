@@ -6,14 +6,14 @@ export const Route = createFileRoute("/keys")({
   head: () => ({
     meta: [
       { title: "Crate Keys — GAMERSTEAL Store" },
-      { name: "description", content: "Common, Rare, Epic and Legendary crate keys for GAMERSTEAL LifeSteal SMP." },
+      { name: "description", content: "Secret, Eternal, Cosmic, Enchanted and Gamer crate keys for GAMERSTEAL LifeSteal SMP. From ₹30." },
       { property: "og:title", content: "Crate Keys — GAMERSTEAL Store" },
-      { property: "og:description", content: "Crate keys for GAMERSTEAL. Prices and rewards coming soon." },
+      { property: "og:description", content: "Secret, Eternal, Cosmic, Enchanted and Gamer crate keys for GAMERSTEAL." },
     ],
   }),
   component: () => (
     <section className="mx-auto max-w-7xl px-4 py-16">
-      <SectionTitle eyebrow="Loot awaits" title="CRATE KEYS" sub="Prices and rewards will be announced soon." />
+      <SectionTitle eyebrow="Loot awaits" title="CRATE KEYS" sub="Five tiers of loot — from Secret to Gamer." />
       <ProductGrid products={KEYS} />
     </section>
   ),
