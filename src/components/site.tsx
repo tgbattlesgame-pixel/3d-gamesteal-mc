@@ -49,7 +49,6 @@ export function CopyIP({ big = false }: { big?: boolean }) {
 const NAV = [
   { to: "/", label: "Home" },
   { to: "/ranks", label: "Ranks" },
-  { to: "/keys", label: "Crate Keys" },
 ] as const;
 
 export function Navbar() {
@@ -106,7 +105,6 @@ export function Footer() {
         <div className="flex flex-col gap-2 text-sm">
           <Link to="/" className="text-muted-foreground hover:text-foreground">Home</Link>
           <Link to="/ranks" className="text-muted-foreground hover:text-foreground">Ranks</Link>
-          <Link to="/keys" className="text-muted-foreground hover:text-foreground">Crate Keys</Link>
           <a href={SERVER.discord} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">Discord</a>
         </div>
         <div className="flex flex-col items-start gap-3">
