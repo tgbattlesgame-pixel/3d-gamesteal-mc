@@ -17,7 +17,7 @@ export const Route = createFileRoute("/cart")({
 });
 
 function CartPage() {
-  const { lines, setQty, remove, total } = useCart();
+  const { lines, remove, total } = useCart();
   return (
     <section className="mx-auto max-w-4xl px-4 py-16">
       <SectionTitle eyebrow="Checkout" title="YOUR CART" />
