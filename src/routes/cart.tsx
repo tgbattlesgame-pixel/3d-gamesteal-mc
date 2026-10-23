@@ -8,7 +8,7 @@ export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
       { title: "Your Cart — GAMERSTEAL Store" },
-      { name: "description", content: "Review the ranks and crate keys in your GAMERSTEAL cart." },
+      { name: "description", content: "Review the ranks in your GAMERSTEAL cart." },
       { property: "og:title", content: "Your Cart — GAMERSTEAL Store" },
       { property: "og:description", content: "Review your GAMERSTEAL cart." },
     ],
