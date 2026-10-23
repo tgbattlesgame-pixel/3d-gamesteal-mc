@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "GAMERSTEAL — Survival SMP Store" },
-      { name: "description", content: "Official GAMERSTEAL Survival SMP store. Buy ranks and claim your land. Play at PLAY.GAMERSTEAL.ONLINE." },
+      { name: "description", content: "Official GAMERSTEAL Survival SMP store. Buy ranks and claim your land. Play at PLAY.TGADEV.ONLINE." },
       { property: "og:title", content: "GAMERSTEAL — Survival SMP Store" },
       { property: "og:description", content: "Your land. Your power. Your legacy. Ranks for GAMERSTEAL Survival SMP." },
     ],

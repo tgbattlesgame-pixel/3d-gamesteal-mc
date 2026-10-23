@@ -6,7 +6,7 @@ import titan from "@/assets/ranks-titan.jpg";
 
 export const SERVER = {
   name: "GAMERSTEAL",
-  ip: "PLAY.GAMERSTEAL.ONLINE",
+  ip: "PLAY.TGADEV.ONLINE",
   store: "SHOP.GAMERSTEAL.ONLINE",
   mode: "Survival SMP",
   season: "Season 1",
