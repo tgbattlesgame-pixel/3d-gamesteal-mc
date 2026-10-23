@@ -49,7 +49,6 @@ export function CopyIP({ big = false }: { big?: boolean }) {
 const NAV = [
   { to: "/", label: "Home" },
   { to: "/ranks", label: "Ranks" },
-  { to: "/keys", label: "Crate Keys" },
 ] as const;
 
 export function Navbar() {
@@ -106,7 +105,6 @@ export function Footer() {
         <div className="flex flex-col gap-2 text-sm">
           <Link to="/" className="text-muted-foreground hover:text-foreground">Home</Link>
           <Link to="/ranks" className="text-muted-foreground hover:text-foreground">Ranks</Link>
-          <Link to="/keys" className="text-muted-foreground hover:text-foreground">Crate Keys</Link>
           <a href={SERVER.discord} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">Discord</a>
         </div>
         <div className="flex flex-col items-start gap-3">
@@ -168,7 +166,7 @@ export function ProductModal({ p, onClose }: { p: Product | null; onClose: () =>
         <button onClick={onClose} className="absolute right-3 top-3 z-10 rounded-lg bg-background/70 p-2" aria-label="Close"><X className="h-4 w-4" /></button>
         <img src={p.image} alt={`${p.name} artwork`} className="aspect-square w-full object-cover" />
         <div className="flex flex-col gap-4 p-6">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">{p.kind === "rank" ? "Rank" : "Crate Key"}</p>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Rank</p>
           <h3 className="text-4xl text-brand">{p.name}</h3>
           <p className="text-muted-foreground">{p.tagline}</p>
           <ul className="space-y-2 text-sm">

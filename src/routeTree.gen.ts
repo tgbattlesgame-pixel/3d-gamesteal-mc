@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as CheckoutRouteImport } from './routes/checkout'
-import { Route as KeysRouteImport } from './routes/keys'
 import { Route as RanksRouteImport } from './routes/ranks'
 
 const IndexRoute = IndexRouteImport.update({
@@ -30,11 +29,6 @@ const CheckoutRoute = CheckoutRouteImport.update({
   path: '/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
-const KeysRoute = KeysRouteImport.update({
-  id: '/keys',
-  path: '/keys',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const RanksRoute = RanksRouteImport.update({
   id: '/ranks',
   path: '/ranks',
@@ -45,14 +39,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
-  '/keys': typeof KeysRoute
   '/ranks': typeof RanksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
-  '/keys': typeof KeysRoute
   '/ranks': typeof RanksRoute
 }
 export interface FileRoutesById {
@@ -60,22 +52,20 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
-  '/keys': typeof KeysRoute
   '/ranks': typeof RanksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cart' | '/checkout' | '/keys' | '/ranks'
+  fullPaths: '/' | '/cart' | '/checkout' | '/ranks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cart' | '/checkout' | '/keys' | '/ranks'
-  id: '__root__' | '/' | '/cart' | '/checkout' | '/keys' | '/ranks'
+  to: '/' | '/cart' | '/checkout' | '/ranks'
+  id: '__root__' | '/' | '/cart' | '/checkout' | '/ranks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CartRoute: typeof CartRoute
   CheckoutRoute: typeof CheckoutRoute
-  KeysRoute: typeof KeysRoute
   RanksRoute: typeof RanksRoute
 }
 
@@ -102,13 +92,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/keys': {
-      id: '/keys'
-      path: '/keys'
-      fullPath: '/keys'
-      preLoaderRoute: typeof KeysRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/ranks': {
       id: '/ranks'
       path: '/ranks'
@@ -123,7 +106,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CartRoute: CartRoute,
   CheckoutRoute: CheckoutRoute,
-  KeysRoute: KeysRoute,
   RanksRoute: RanksRoute,
 }
 export const routeTree = rootRouteImport
