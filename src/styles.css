@@ -28,6 +28,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-blood: var(--blood);
   --color-gold: var(--gold);
+  --color-success: var(--success);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
@@ -53,6 +54,7 @@
   --accent-foreground: oklch(0.99 0 0);
   --blood: oklch(0.6 0.24 25);
   --gold: oklch(0.82 0.16 85);
+  --success: oklch(0.75 0.18 150);
   --destructive: oklch(0.62 0.24 25);
   --destructive-foreground: oklch(0.99 0 0);
   --border: oklch(0.62 0.25 300 / 22%);
