@@ -36,13 +36,7 @@ function CartPage() {
                   <p className="font-display">{p.name}</p>
                   <p className="text-sm text-muted-foreground">{formatINR(p.price)}</p>
                 </div>
-                {p.kind === "rank" && (
-                  <div className="flex items-center gap-2">
-                    <button className="glass rounded p-1.5" onClick={() => setQty(id, qty - 1)} aria-label="Decrease"><Minus className="h-3 w-3" /></button>
-                    <span className="w-6 text-center">{qty}</span>
-                    <button className="glass rounded p-1.5" onClick={() => setQty(id, qty + 1)} aria-label="Increase"><Plus className="h-3 w-3" /></button>
-                  </div>
-                )}
+                <span className="text-xs text-muted-foreground">×1</span>
                 <button onClick={() => remove(id)} className="p-2 text-muted-foreground hover:text-destructive" aria-label="Remove"><Trash2 className="h-4 w-4" /></button>
               </li>
             ))}
