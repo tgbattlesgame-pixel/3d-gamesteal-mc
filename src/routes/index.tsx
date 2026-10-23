@@ -3,6 +3,7 @@ import hero from "@/assets/hero-bg.jpg";
 import logo from "@/assets/gamersteal-logo.png";
 import { RANKS, SERVER } from "@/lib/products";
 import { btn, CopyIP, DiscordButton, ProductGrid, SectionTitle } from "@/components/site";
+import { ServerStatusPanel } from "@/components/server-status";
 import { Crown, LandPlot, Swords, ShoppingCart, Ticket, MessageSquareText, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -41,6 +42,7 @@ function Index() {
             <DiscordButton />
           </div>
           <div className="mt-8"><CopyIP big /></div>
+          <div className="mt-4 w-full px-2"><ServerStatusPanel /></div>
         </div>
       </section>
 
