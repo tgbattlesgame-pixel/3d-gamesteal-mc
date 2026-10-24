@@ -16,6 +16,6 @@ export default defineConfig({
     // Self-hosted builds (outside Lovable's own hosting) target Vercel by default.
     // Lovable's preview/publish ignores this and keeps its own Cloudflare target.
     // Override for other hosts with NITRO_PRESET (e.g. `node-server` for Render).
-    preset: process.env.NITRO_PRESET ?? "vercel",
+    preset: process.env["NITRO_PRESET"] ?? "vercel",
   },
 });
