@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Trash2 } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { formatINR } from "@/lib/products";
-import { btn, SectionTitle } from "@/components/site";
+import { btn, PriceTag, SectionTitle } from "@/components/site";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({
@@ -34,7 +34,7 @@ function CartPage() {
                 <img src={p.image} alt="" className="h-16 w-16 rounded-lg object-cover" />
                 <div className="flex-1">
                   <p className="font-display">{p.name}</p>
-                  <p className="text-sm text-muted-foreground">{formatINR(p.price)}</p>
+                  <PriceTag p={p} size="sm" />
                 </div>
                 <span className="text-xs text-muted-foreground">×1</span>
                 <button onClick={() => remove(id)} className="p-2 text-muted-foreground hover:text-destructive" aria-label="Remove"><Trash2 className="h-4 w-4" /></button>

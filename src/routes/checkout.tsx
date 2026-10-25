@@ -3,6 +3,7 @@ import { useState } from "react";
 import { AlertTriangle, Loader2 } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { formatINR } from "@/lib/products";
+import { effectivePrice } from "@/lib/sale";
 import { btn, DiscordButton, SectionTitle } from "@/components/site";
 
 export const Route = createFileRoute("/checkout")({
@@ -79,7 +80,7 @@ function Checkout() {
         </form>
         <aside className="glass h-fit space-y-3 rounded-2xl p-6">
           {lines.map(({ id, qty, product: p }) => (
-            <div key={id} className="flex justify-between text-sm"><span>{p.name} ×{qty}</span><span>{formatINR((p.price ?? 0) * qty)}</span></div>
+            <div key={id} className="flex justify-between text-sm"><span>{p.name} ×{qty}</span><span>{formatINR((effectivePrice(p) ?? 0) * qty)}</span></div>
           ))}
           <div className="flex justify-between border-t border-border pt-3 font-display text-lg"><span>Total</span><span>{formatINR(total)}</span></div>
         </aside>
