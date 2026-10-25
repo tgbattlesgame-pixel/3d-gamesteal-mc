@@ -19,7 +19,7 @@ export type Product = {
   id: string;
   kind: "rank";
   name: string;
-  /** Price in INR. null = not set yet (placeholder). */
+  /** Regular price in INR. null = not set yet (placeholder). */
   price: number | null;
   image: string;
   tagline: string;
@@ -31,12 +31,17 @@ export type Product = {
 // ✏️ Edit products here.
 export const RANKS: Product[] = [
   { id: "destroyer", kind: "rank", name: "DESTROYER", price: 100, image: r0, tagline: "Break everything in your path.", perks: ["Perks to be announced"] },
-  { id: "titan", kind: "rank", name: "TITAN", price: 200, image: titan, tagline: "A giant among survivors.", perks: ["Perks to be announced"] },
-  { id: "deadliest", kind: "rank", name: "DEADLIEST", price: 300, image: r4, tagline: "Feared by every player.", perks: ["Perks to be announced"] },
-  { id: "gamer", kind: "rank", name: "GAMER", price: 400, image: r5, tagline: "The ultimate rank.", perks: ["Perks to be announced"], featured: true },
+  { id: "titan", kind: "rank", name: "TITAN", price: 150, image: titan, tagline: "A giant among survivors.", perks: ["Perks to be announced"] },
+  { id: "deadliest", kind: "rank", name: "DEADLIEST", price: 200, image: r4, tagline: "Feared by every player.", perks: ["Perks to be announced"] },
+  { id: "gamer", kind: "rank", name: "GAMER", price: 250, image: r5, tagline: "The ultimate rank.", perks: ["Perks to be announced"], featured: true },
 ];
 
 export const ALL_PRODUCTS = [...RANKS];
 
 export const formatINR = (n: number | null) =>
-  n === null ? "Price TBA" : `₹${n.toLocaleString("en-IN")}`;
+  n === null
+    ? "Price TBA"
+    : `₹${n.toLocaleString("en-IN", {
+        minimumFractionDigits: Number.isInteger(n) ? 0 : 2,
+        maximumFractionDigits: 2,
+      })}`;
