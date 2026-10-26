@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { RANKS, formatINR } from "@/lib/products";
+import { RANKS, POINTS, formatINR } from "@/lib/products";
 import { isSaleActive, salePrice, effectivePrice } from "@/lib/sale";
 
 // IST is UTC+5:30 year-round, so IST wall-clock times map to fixed UTC instants.
@@ -29,6 +29,12 @@ describe("Rank lineup", () => {
   });
   it("uses the owner-set regular prices 100/150/200/250", () => {
     expect(RANKS.map((r) => r.price)).toEqual([100, 150, 200, 250]);
+  });
+});
+
+describe("Points lineup", () => {
+  it("lists the six owner-set point packs with prices", () => {
+    expect(POINTS.map((p) => p.price)).toEqual([10, 20, 35, 60, 120, 200]);
   });
 });
 
