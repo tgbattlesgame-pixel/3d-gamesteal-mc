@@ -50,6 +50,7 @@ export function CopyIP({ big = false }: { big?: boolean }) {
 const NAV = [
   { to: "/", label: "Home" },
   { to: "/ranks", label: "Ranks" },
+  { to: "/points", label: "Points" },
 ] as const;
 
 export function Navbar() {
@@ -106,6 +107,7 @@ export function Footer() {
         <div className="flex flex-col gap-2 text-sm">
           <Link to="/" className="text-muted-foreground hover:text-foreground">Home</Link>
           <Link to="/ranks" className="text-muted-foreground hover:text-foreground">Ranks</Link>
+          <Link to="/points" className="text-muted-foreground hover:text-foreground">Points</Link>
           <a href={SERVER.discord} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">Discord</a>
         </div>
         <div className="flex flex-col items-start gap-3">
@@ -134,7 +136,7 @@ export function ProductCard({ p, onDetails }: { p: Product; onDetails: (p: Produ
   return (
     <article className={`glass group relative flex flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1.5 ${p.featured ? "border-blood/60 shadow-glow-red" : "hover:shadow-glow"}`}>
       {sale && p.price !== null && <span className="absolute left-3 top-3 z-10 rounded-full bg-blood px-3 py-1 text-[10px] font-bold uppercase tracking-widest">15% off</span>}
-      {p.featured && <span className="absolute right-3 top-3 z-10 rounded-full bg-brand px-3 py-1 text-[10px] font-bold uppercase tracking-widest">{p.kind === "rank" ? "Ultimate" : "Best"}</span>}
+      {p.featured && <span className="absolute right-3 top-3 z-10 rounded-full bg-brand px-3 py-1 text-[10px] font-bold uppercase tracking-widest">{p.kind === "rank" ? "Ultimate" : "Best value"}</span>}
       <div className="relative aspect-square overflow-hidden bg-background">
         <img src={p.image} alt={`${p.name} artwork`} loading="lazy" width={512} height={512} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 float-slow" />
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
@@ -169,7 +171,7 @@ export function ProductModal({ p, onClose }: { p: Product | null; onClose: () =>
         <button onClick={onClose} className="absolute right-3 top-3 z-10 rounded-lg bg-background/70 p-2" aria-label="Close"><X className="h-4 w-4" /></button>
         <img src={p.image} alt={`${p.name} artwork`} className="aspect-square w-full object-cover" />
         <div className="flex flex-col gap-4 p-6">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Rank</p>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">{p.kind === "rank" ? "Rank" : "Points"}</p>
           <h3 className="text-4xl text-brand">{p.name}</h3>
           <p className="text-muted-foreground">{p.tagline}</p>
           <ul className="space-y-2 text-sm">
