@@ -44,6 +44,7 @@ describe("Sale pricing", () => {
     expect(salePrice(byId("titan"))).toBe(127.5);
     expect(salePrice(byId("deadliest"))).toBe(170);
     expect(salePrice(byId("gamer"))).toBe(212.5);
+    expect(POINTS.map((p) => salePrice(p))).toEqual([8.5, 17, 29.75, 51, 102, 170]);
   });
   it("restores regular prices outside the sale", () => {
     const before = IST(2026, 10, 1, 12, 0);
@@ -57,6 +58,8 @@ describe("Sale pricing", () => {
     const now = IST(2026, 10, 30, 12, 0);
     expect(effectivePrice(byId("titan"), now)).toBe(127.5);
     expect(effectivePrice(byId("gamer"), now)).toBe(212.5);
+    expect(effectivePrice(POINTS[0], now)).toBe(8.5);
+    expect(effectivePrice(POINTS[5], now)).toBe(170);
   });
 });
 
