@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as PointsRouteImport } from './routes/points'
 import { Route as RanksRouteImport } from './routes/ranks'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const CheckoutRoute = CheckoutRouteImport.update({
   path: '/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PointsRoute = PointsRouteImport.update({
+  id: '/points',
+  path: '/points',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RanksRoute = RanksRouteImport.update({
   id: '/ranks',
   path: '/ranks',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
+  '/points': typeof PointsRoute
   '/ranks': typeof RanksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
+  '/points': typeof PointsRoute
   '/ranks': typeof RanksRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
+  '/points': typeof PointsRoute
   '/ranks': typeof RanksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cart' | '/checkout' | '/ranks'
+  fullPaths: '/' | '/cart' | '/checkout' | '/points' | '/ranks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cart' | '/checkout' | '/ranks'
-  id: '__root__' | '/' | '/cart' | '/checkout' | '/ranks'
+  to: '/' | '/cart' | '/checkout' | '/points' | '/ranks'
+  id: '__root__' | '/' | '/cart' | '/checkout' | '/points' | '/ranks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CartRoute: typeof CartRoute
   CheckoutRoute: typeof CheckoutRoute
+  PointsRoute: typeof PointsRoute
   RanksRoute: typeof RanksRoute
 }
 
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/points': {
+      id: '/points'
+      path: '/points'
+      fullPath: '/points'
+      preLoaderRoute: typeof PointsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ranks': {
       id: '/ranks'
       path: '/ranks'
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CartRoute: CartRoute,
   CheckoutRoute: CheckoutRoute,
+  PointsRoute: PointsRoute,
   RanksRoute: RanksRoute,
 }
 export const routeTree = rootRouteImport

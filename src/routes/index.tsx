@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import hero from "@/assets/hero-bg.jpg";
 import logo from "@/assets/gamersteal-logo.png";
-import { RANKS, SERVER } from "@/lib/products";
+import { RANKS, POINTS, POINTS_BLURB, SERVER } from "@/lib/products";
 import { btn, CopyIP, DiscordButton, ProductGrid, SectionTitle } from "@/components/site";
 import { ServerStatusPanel } from "@/components/server-status";
 import { Crown, LandPlot, Swords, ShoppingCart, Ticket, MessageSquareText, Sparkles } from "lucide-react";
@@ -65,6 +65,11 @@ function Index() {
       <section id="ranks" className="mx-auto max-w-7xl px-4 py-12">
         <SectionTitle eyebrow="Rank Store" title="RANKS" sub="Explore ranks to enhance your GAMERSTEAL experience." />
         <ProductGrid products={RANKS} />
+      </section>
+
+      <section id="points" className="mx-auto max-w-7xl px-4 py-12">
+        <SectionTitle eyebrow="Points Store" title="POINTS" sub={POINTS_BLURB} />
+        <ProductGrid products={POINTS} />
       </section>
 
       <section id="how-to-buy" className="mx-auto max-w-7xl px-4 py-12">

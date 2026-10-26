@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Trash2 } from "lucide-react";
+import { Minus, Plus, Trash2 } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { formatINR } from "@/lib/products";
 import { btn, PriceTag, SectionTitle } from "@/components/site";
@@ -8,7 +8,7 @@ export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
       { title: "Your Cart — GAMERSTEAL Store" },
-      { name: "description", content: "Review the ranks in your GAMERSTEAL cart." },
+      { name: "description", content: "Review the ranks and points in your GAMERSTEAL cart." },
       { property: "og:title", content: "Your Cart — GAMERSTEAL Store" },
       { property: "og:description", content: "Review your GAMERSTEAL cart." },
     ],
@@ -17,14 +17,17 @@ export const Route = createFileRoute("/cart")({
 });
 
 function CartPage() {
-  const { lines, remove, total } = useCart();
+  const { lines, remove, setQty, total } = useCart();
   return (
     <section className="mx-auto max-w-4xl px-4 py-16">
       <SectionTitle eyebrow="Checkout" title="YOUR CART" />
       {lines.length === 0 ? (
         <div className="glass rounded-2xl p-10 text-center">
           <p className="text-muted-foreground">Your cart is empty.</p>
-          <Link to="/ranks" className={`${btn.primary} mt-6`}>Browse ranks</Link>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Link to="/ranks" className={btn.primary}>Browse ranks</Link>
+            <Link to="/points" className={btn.ghost}>Browse points</Link>
+          </div>
         </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-[1fr_300px]">
@@ -36,7 +39,15 @@ function CartPage() {
                   <p className="font-display">{p.name}</p>
                   <PriceTag p={p} size="sm" />
                 </div>
-                <span className="text-xs text-muted-foreground">×1</span>
+                {p.kind === "points" ? (
+                  <div className="flex items-center gap-1.5">
+                    <button onClick={() => setQty(id, qty - 1)} className="glass rounded-lg p-1.5 hover:shadow-glow" aria-label={`Remove one ${p.name}`}><Minus className="h-3.5 w-3.5" /></button>
+                    <span className="w-6 text-center text-sm font-bold">{qty}</span>
+                    <button onClick={() => setQty(id, qty + 1)} className="glass rounded-lg p-1.5 hover:shadow-glow" aria-label={`Add one ${p.name}`}><Plus className="h-3.5 w-3.5" /></button>
+                  </div>
+                ) : (
+                  <span className="text-xs text-muted-foreground">×1</span>
+                )}
                 <button onClick={() => remove(id)} className="p-2 text-muted-foreground hover:text-destructive" aria-label="Remove"><Trash2 className="h-4 w-4" /></button>
               </li>
             ))}

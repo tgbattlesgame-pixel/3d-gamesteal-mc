@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { RANKS, formatINR } from "@/lib/products";
+import { RANKS, POINTS, formatINR } from "@/lib/products";
 import { isSaleActive, salePrice, effectivePrice } from "@/lib/sale";
 
 // IST is UTC+5:30 year-round, so IST wall-clock times map to fixed UTC instants.
@@ -32,12 +32,19 @@ describe("Rank lineup", () => {
   });
 });
 
+describe("Points lineup", () => {
+  it("lists the six owner-set point packs with prices", () => {
+    expect(POINTS.map((p) => p.price)).toEqual([10, 20, 35, 60, 120, 200]);
+  });
+});
+
 describe("Sale pricing", () => {
   it("charges exactly 15% off during the sale", () => {
     expect(salePrice(byId("destroyer"))).toBe(85);
     expect(salePrice(byId("titan"))).toBe(127.5);
     expect(salePrice(byId("deadliest"))).toBe(170);
     expect(salePrice(byId("gamer"))).toBe(212.5);
+    expect(POINTS.map((p) => salePrice(p))).toEqual([8.5, 17, 29.75, 51, 102, 170]);
   });
   it("restores regular prices outside the sale", () => {
     const before = IST(2026, 10, 1, 12, 0);
@@ -51,6 +58,8 @@ describe("Sale pricing", () => {
     const now = IST(2026, 10, 30, 12, 0);
     expect(effectivePrice(byId("titan"), now)).toBe(127.5);
     expect(effectivePrice(byId("gamer"), now)).toBe(212.5);
+    expect(effectivePrice(POINTS.find((p) => p.id === "points-100")!, now)).toBe(8.5);
+    expect(effectivePrice(POINTS.find((p) => p.id === "points-5000")!, now)).toBe(170);
   });
 });
 
