@@ -58,8 +58,8 @@ describe("Sale pricing", () => {
     const now = IST(2026, 10, 30, 12, 0);
     expect(effectivePrice(byId("titan"), now)).toBe(127.5);
     expect(effectivePrice(byId("gamer"), now)).toBe(212.5);
-    expect(effectivePrice(POINTS[0], now)).toBe(8.5);
-    expect(effectivePrice(POINTS[5], now)).toBe(170);
+    expect(effectivePrice(POINTS.find((p) => p.id === "points-100")!, now)).toBe(8.5);
+    expect(effectivePrice(POINTS.find((p) => p.id === "points-5000")!, now)).toBe(170);
   });
 });
 
