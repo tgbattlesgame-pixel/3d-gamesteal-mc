@@ -14,7 +14,6 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CartProvider } from "../lib/cart";
 import { Navbar, Footer } from "../components/site";
-import { SaleBanner } from "../components/sale-banner";
 import { Toaster } from "../components/ui/sonner";
 
 function NotFoundComponent() {
@@ -128,7 +127,6 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <CartProvider>
         <Navbar />
-        <SaleBanner />
         <main><Outlet /></main>
         <Footer />
         <Toaster theme="dark" position="top-center" />

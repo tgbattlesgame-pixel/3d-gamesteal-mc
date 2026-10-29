@@ -5,7 +5,6 @@ import { Menu, ShoppingCart, X, Copy, Check } from "lucide-react";
 import logo from "@/assets/gamersteal-logo.png";
 import { SERVER, formatINR, type Product } from "@/lib/products";
 import { useCart } from "@/lib/cart";
-import { useSale, effectivePrice } from "@/lib/sale";
 
 const btnBase = "inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-bold uppercase tracking-wider transition-all disabled:opacity-50 disabled:pointer-events-none";
 export const btn = {
@@ -132,10 +131,8 @@ export function SectionTitle({ eyebrow, title, sub }: { eyebrow: string; title: 
 
 export function ProductCard({ p, onDetails }: { p: Product; onDetails: (p: Product) => void }) {
   const { add } = useCart();
-  const sale = useSale();
   return (
     <article className={`glass group relative flex flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1.5 ${p.featured ? "border-blood/60 shadow-glow-red" : "hover:shadow-glow"}`}>
-      {sale && p.price !== null && <span className="absolute left-3 top-3 z-10 rounded-full bg-blood px-3 py-1 text-[10px] font-bold uppercase tracking-widest">15% off</span>}
       {p.featured && <span className="absolute right-3 top-3 z-10 rounded-full bg-brand px-3 py-1 text-[10px] font-bold uppercase tracking-widest">{p.kind === "rank" ? "Ultimate" : "Best value"}</span>}
       <div className="relative aspect-square overflow-hidden bg-background">
         <img src={p.image} alt={`${p.name} artwork`} loading="lazy" width={512} height={512} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 float-slow" />
@@ -203,20 +200,12 @@ export function ProductGrid({ products }: { products: Product[] }) {
   );
 }
 
-/** Price display that shows the regular price, or the strikethrough + sale price during the sale. */
+/** Price display — always the regular price. */
 export function PriceTag({ p, size = "md", className = "" }: { p: Product; size?: "sm" | "md" | "lg"; className?: string }) {
-  const sale = useSale();
   const sizes = { sm: "text-sm", md: "text-2xl", lg: "text-3xl" } as const;
-  const strikes = { sm: "text-xs", md: "text-sm", lg: "text-lg" } as const;
-  if (p.price === null)
-    return <p className={`font-display ${sizes[size]} text-foreground ${className}`}>{formatINR(null)}</p>;
-  if (!sale)
-    return <p className={`font-display ${sizes[size]} text-foreground ${className}`}>{formatINR(p.price)}</p>;
   return (
-    <p className={`font-display ${sizes[size]} ${className}`}>
-      <span className={`${strikes[size]} mr-2 text-muted-foreground line-through`} aria-label="Original price">{formatINR(p.price)}</span>
-      <span className="text-brand">{formatINR(effectivePrice(p))}</span>
-      <span className="sr-only"> (sale price)</span>
+    <p className={`font-display ${sizes[size]} text-foreground ${className}`}>
+      {formatINR(p.price)}
     </p>
   );
 }
