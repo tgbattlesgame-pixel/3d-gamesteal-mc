@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { ALL_PRODUCTS, type Product } from "./products";
-import { effectivePrice } from "./sale";
 
 type Line = { id: string; qty: number };
 type Ctx = {
@@ -40,7 +39,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     remove: (id) => save(raw.filter((l) => l.id !== id)),
     clear: () => save([]),
     count: lines.reduce((s, l) => s + l.qty, 0),
-    total: lines.reduce((s, l) => s + (effectivePrice(l.product) ?? 0) * l.qty, 0),
+    total: lines.reduce((s, l) => s + (l.product.price ?? 0) * l.qty, 0),
     hasUnpriced: lines.some((l) => l.product.price === null),
   };
   return <CartCtx.Provider value={value}>{children}</CartCtx.Provider>;

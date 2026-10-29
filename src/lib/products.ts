@@ -16,7 +16,7 @@ export const SERVER = {
   store: "SHOP.GAMERSTEAL.ONLINE",
   mode: "Survival SMP",
   season: "Season 1",
-  discord: "https://discord.gg/BQ9wFAMJU",
+  discord: "https://discord.gg/HaNwU9zukt",
   owner: "TheGamerAdept",
   poweredBy: "TGA",
 };
