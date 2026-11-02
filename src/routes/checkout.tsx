@@ -1,10 +1,11 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import { AlertTriangle, CheckCircle2, Copy, Check, ImageUp, Loader2, MessageSquareText, Smartphone, X } from "lucide-react";
+import { Check, CheckCircle2, Copy, ImageUp, Loader2, MessageSquareText, Smartphone, X } from "lucide-react";
 import { toast } from "sonner";
 import { useCart } from "@/lib/cart";
 import { formatINR } from "@/lib/products";
-import { submitProof } from "@/lib/orders.functions";
+import { createOrder, submitProof } from "@/lib/orders.functions";
 import { validateEmail, validateMcUsername } from "@/lib/order-helpers";
 import { supabase } from "@/integrations/supabase/client";
 import { btn, DiscordButton, SectionTitle } from "@/components/site";
@@ -28,7 +29,8 @@ const MAX_PROOF_MB = 10;
 
 function Checkout() {
   const { lines, total, clear } = useCart();
-  const navigate = useNavigate();
+  const createOrderFn = useServerFn(createOrder);
+  const submitProofFn = useServerFn(submitProof);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [edition, setEdition] = useState<"java" | "bedrock">("java");
@@ -50,7 +52,7 @@ function Checkout() {
       </section>
     );
 
-  const createOrderFn = async (e: React.FormEvent) => {
+  const placeOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     setErr("");
     const uErr = validateMcUsername(name);
@@ -70,7 +72,7 @@ function Checkout() {
   const uploadPath = (code: string, f: File) =>
     `proofs/${code}/${Date.now()}-${f.name.replace(/[^A-Za-z0-9._-]/g, "_").slice(-60)}`;
 
-  const submitProofFn = async () => {
+  const sendProof = async () => {
     if (!order || !file) return;
     setErr("");
     if (file.size > MAX_PROOF_MB * 1024 * 1024) return setErr(`Screenshot must be under ${MAX_PROOF_MB} MB.`);
@@ -85,7 +87,7 @@ function Checkout() {
       console.error("proof upload failed:", upErr);
       return setErr("Could not upload the screenshot. Try again.");
     }
-    const res = await submitProofFnRemote({ data: { code: order.code, path } });
+    const res = await submitProofFn({ data: { code: order.code, path } });
     setState("idle");
     if (res.error) return setErr(res.error);
     clear();
@@ -104,7 +106,7 @@ function Checkout() {
 
       {step === "form" && (
         <div className="grid gap-6 md:grid-cols-[1fr_300px]">
-          <form onSubmit={createOrderFn} className="glass space-y-4 rounded-2xl p-6" noValidate>
+          <form onSubmit={placeOrder} className="glass space-y-4 rounded-2xl p-6" noValidate>
             <div className="grid grid-cols-2 gap-2">
               {(["java", "bedrock"] as const).map((ed) => (
                 <button
@@ -216,7 +218,7 @@ function Checkout() {
                 {err}
               </p>
             )}
-            <button onClick={submitProofFn} disabled={!file || state !== "idle"} className={`${btn.primary} w-full`}>
+            <button onClick={sendProof} disabled={!file || state !== "idle"} className={`${btn.primary} w-full`}>
               {state === "uploading" ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" /> Uploading…
@@ -294,18 +296,4 @@ function OrderSummary({ lines, total }: { lines: { id: string; qty: number; prod
       </div>
     </aside>
   );
-}
-
-// Imported this way so the upload flow can also be exercised in tests.
-import { createOrder as createOrderFnImport, submitProof as submitProofFnRemote } from "@/lib/orders.functions";
-
-declare const createOrderFn: typeof createOrderFnImport;
-
-import { useServerFn } from "@tanstack/react-start";
-
-export const _internal_createOrder = createOrderFnImport;
-export const _internal_submitProof = submitProofFnRemote;
-
-export function CheckoutFormPlaceholder() {
-  return <AlertTriangle className="h-4 w-4" />;
 }
