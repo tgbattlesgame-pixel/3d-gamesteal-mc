@@ -40,13 +40,14 @@ describe("Order totals are recomputed server-side", () => {
     if ("error" in built) throw new Error(built.error);
     expect(built.total).toBe(180); // 3 × 60
   });
+  const errOf = (r: { error?: string }) => r.error;
   it("rejects unknown products and empty carts", () => {
-    expect(buildOrderItems([pid("no-such-item")]).error).toBeTruthy();
-    expect(buildOrderItems([]).error).toBeTruthy();
+    expect(errOf(buildOrderItems([pid("no-such-item")]))).toBeTruthy();
+    expect(errOf(buildOrderItems([]))).toBeTruthy();
   });
   it("rejects quantity over 99 and rank duplicates", () => {
-    expect(buildOrderItems([{ id: "points-100", qty: 100 }]).error).toBeTruthy();
-    expect(buildOrderItems([{ id: "gamer", qty: 2 }]).error).toBeTruthy();
+    expect(errOf(buildOrderItems([{ id: "points-100", qty: 100 }]))).toBeTruthy();
+    expect(errOf(buildOrderItems([{ id: "gamer", qty: 2 }]))).toBeTruthy();
   });
 });
 
