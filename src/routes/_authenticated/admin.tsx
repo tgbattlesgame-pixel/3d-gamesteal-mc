@@ -59,7 +59,7 @@ function AdminPage() {
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
-  if (role && "error" in role) return <NoticeBox message={role.error} />;
+  if (role && "error" in role) return <NoticeBox message={String(role.error)} />;
   if (role && !role.isAdmin)
     return (
       <NoticeBox
@@ -89,7 +89,7 @@ function AdminDashboard() {
     await queryClient.cancelQueries();
     queryClient.clear();
     await supabase.auth.signOut();
-    navigate({ to: "/auth", replace: true });
+    navigate({ to: "/auth", replace: true, search: {} });
   };
 
   return (
@@ -161,7 +161,7 @@ function OrderCard({ order: o, onChanged }: { order: AdminOrder; onChanged: () =
     setBusy(true);
     const res = await statusFn({ data: { code: o.code, status } });
     setBusy(false);
-    if (res.error) return toast.error(res.error);
+    if (res.error) { toast.error(res.error); return; }
     toast.success(`Order ${o.code} marked ${status}.`);
     onChanged();
   };
@@ -169,7 +169,7 @@ function OrderCard({ order: o, onChanged }: { order: AdminOrder; onChanged: () =
   const viewProof = async () => {
     if (!o.proof_path) return;
     const res = await proofFn({ data: { path: o.proof_path } });
-    if (res.error) return toast.error(res.error);
+    if (res.error) { toast.error(res.error); return; }
     window.open(res.url, "_blank", "noopener");
   };
 
@@ -238,7 +238,7 @@ function OrderChat({ code }: { code: string }) {
     setSending(true);
     const res = await sendFn({ data: { code, body } });
     setSending(false);
-    if (res.error) return toast.error(res.error);
+    if (res.error) { toast.error(res.error); return; }
     setBody("");
     queryClient.invalidateQueries({ queryKey: ["admin-thread", code] });
   };
@@ -292,7 +292,7 @@ function AdminsTab() {
     setBusy(true);
     const res = await grantFn({ data: { email } });
     setBusy(false);
-    if (res.error) return toast.error(res.error);
+    if (res.error) { toast.error(res.error); return; }
     toast.success("Admin title granted.");
     setEmail("");
     queryClient.invalidateQueries({ queryKey: ["admin-roles"] });
@@ -300,7 +300,7 @@ function AdminsTab() {
 
   const revoke = async (userId: string) => {
     const res = await revokeFn({ data: { userId } });
-    if (res.error) return toast.error(res.error);
+    if (res.error) { toast.error(res.error); return; }
     toast.success("Admin title removed.");
     queryClient.invalidateQueries({ queryKey: ["admin-roles"] });
   };

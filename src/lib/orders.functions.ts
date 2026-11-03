@@ -49,7 +49,7 @@ export const createOrder = createServerFn({ method: "POST" })
       email: data.email.trim(),
       edition,
       items: built.items,
-      total: String(built.total),
+      total: built.total,
     });
     if (error) {
       console.error("createOrder failed:", error);

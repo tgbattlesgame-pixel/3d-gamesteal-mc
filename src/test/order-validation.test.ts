@@ -40,7 +40,7 @@ describe("Order totals are recomputed server-side", () => {
     if ("error" in built) throw new Error(built.error);
     expect(built.total).toBe(180); // 3 × 60
   });
-  const errOf = (r: { error?: string }) => r.error;
+  const errOf = (r: unknown) => (typeof r === "object" && r && "error" in r ? (r as { error: string }).error : "");
   it("rejects unknown products and empty carts", () => {
     expect(errOf(buildOrderItems([pid("no-such-item")]))).toBeTruthy();
     expect(errOf(buildOrderItems([]))).toBeTruthy();

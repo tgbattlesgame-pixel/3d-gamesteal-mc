@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { isValidOrderStatus } from "./order-helpers";
 
-type AdminContext = { supabase: NonNullable<unknown>; userId: string };
+type AdminContext = { supabase: import("@supabase/supabase-js").SupabaseClient; userId: string };
 
 async function requireAdmin(context: AdminContext) {
   const { data, error } = await context.supabase.rpc("has_role", {
