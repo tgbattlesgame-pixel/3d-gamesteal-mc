@@ -51,10 +51,10 @@ describe("Order totals are recomputed server-side", () => {
 });
 
 describe("Order codes", () => {
-  it("accepts GS-AB12CD style codes, rejects confusable chars", () => {
-    expect(validateOrderCode("GS-AB12CD")).toBe(true);
+  it("accepts GS-AB23CD style codes, rejects confusable chars", () => {
+    expect(validateOrderCode("GS-AB23CD")).toBe(true);
     expect(validateOrderCode("gs-ab12cd")).toBe(false); // must be uppercase
-    expect(validateOrderCode("GS-AO12CD")).toBe(false); // O not allowed
+    expect(validateOrderCode("GS-AO23CD")).toBe(false); // O not allowed
   });
   it("generates valid codes", () => {
     for (let i = 0; i < 20; i++) expect(validateOrderCode(genCode())).toBe(true);
@@ -68,10 +68,10 @@ function genCode() {
 
 describe("Proof paths and statuses", () => {
   it("only allows uploads under proofs/<code>/", () => {
-    expect(isValidProofPath("GS-AB12CD", "proofs/GS-AB12CD/pay.png")).toBe(true);
-    expect(isValidProofPath("GS-AB12CD", "proofs/GS-XY89ZW/pay.png")).toBe(false);
-    expect(isValidProofPath("GS-AB12CD", "proofs/GS-AB12CD/../evil.png")).toBe(false);
-    expect(isValidProofPath("GS-AB12CD", "other/pay.png")).toBe(false);
+    expect(isValidProofPath("GS-AB23CD", "proofs/GS-AB23CD/pay.png")).toBe(true);
+    expect(isValidProofPath("GS-AB23CD", "proofs/GS-XY89ZW/pay.png")).toBe(false);
+    expect(isValidProofPath("GS-AB23CD", "proofs/GS-AB23CD/../evil.png")).toBe(false);
+    expect(isValidProofPath("GS-AB23CD", "other/pay.png")).toBe(false);
   });
   it("accepts only the four order statuses", () => {
     expect(isValidOrderStatus("pending")).toBe(true);
