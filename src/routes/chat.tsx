@@ -145,7 +145,7 @@ function OrderThread({ code }: { code: string }) {
       </div>
     );
 
-  const { order: o, messages } = data as OrderResult;
+  const { order: o, messages } = data as unknown as OrderResult;
 
   return (
     <div className="space-y-4">

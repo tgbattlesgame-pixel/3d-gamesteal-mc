@@ -65,7 +65,8 @@ function Checkout() {
     });
     setState("idle");
     if (res.error) return setErr(res.error);
-    setOrder({ code: res.code, total: res.total });
+    const placed = res as { code: string; total: number };
+    setOrder({ code: placed.code, total: placed.total });
     setStep("pay");
   };
 
