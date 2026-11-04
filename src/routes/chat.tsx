@@ -119,12 +119,20 @@ function OrderThread({ code }: { code: string }) {
   const send = async () => {
     if (!body.trim()) return;
     setSending(true);
-    const res = await sendFn({ data: { code, body } });
-    setSending(false);
-    if (res.error) return setLoadErr(res.error);
-    setBody("");
-    setLoadErr("");
-    queryClient.invalidateQueries({ queryKey: ["buyer-order", code] });
+    try {
+      const res = await sendFn({ data: { code, body } });
+      if (res.error) {
+        setLoadErr(res.error);
+        return;
+      }
+      setBody("");
+      setLoadErr("");
+      queryClient.invalidateQueries({ queryKey: ["buyer-order", code] });
+    } catch {
+      setLoadErr("Message didn't send — please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   if (isLoading)
