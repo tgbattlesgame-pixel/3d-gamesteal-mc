@@ -60,14 +60,19 @@ function Checkout() {
     const eErr = validateEmail(email);
     if (eErr) return setErr(eErr);
     setState("placing");
-    const res = await createOrderFn({
-      data: { mcUsername: name, email, edition, items: lines.map((l) => ({ id: l.id, qty: l.qty })) },
-    });
-    setState("idle");
-    if (res.error) return setErr(res.error);
-    const placed = res as { code: string; total: number };
-    setOrder({ code: placed.code, total: placed.total });
-    setStep("pay");
+    try {
+      const res = await createOrderFn({
+        data: { mcUsername: name, email, edition, items: lines.map((l) => ({ id: l.id, qty: l.qty })) },
+      });
+      if (res.error) return setErr(res.error);
+      const placed = res as { code: string; total: number };
+      setOrder({ code: placed.code, total: placed.total });
+      setStep("pay");
+    } catch {
+      setErr("Something went wrong while creating your order. Please try again.");
+    } finally {
+      setState("idle");
+    }
   };
 
   const uploadPath = (code: string, f: File) =>
@@ -79,20 +84,24 @@ function Checkout() {
     if (file.size > MAX_PROOF_MB * 1024 * 1024) return setErr(`Screenshot must be under ${MAX_PROOF_MB} MB.`);
     setState("uploading");
     const path = uploadPath(order.code, file);
-    const { error: upErr } = await supabase.storage.from("payment-proofs").upload(path, file, {
-      cacheControl: "3600",
-      contentType: file.type || "image/png",
-    });
-    if (upErr) {
+    try {
+      const { error: upErr } = await supabase.storage.from("payment-proofs").upload(path, file, {
+        cacheControl: "3600",
+        contentType: file.type || "image/png",
+      });
+      if (upErr) {
+        console.error("proof upload failed:", upErr);
+        return setErr("Could not upload the screenshot. Try again.");
+      }
+      const res = await submitProofFn({ data: { code: order.code, path } });
+      if (res.error) return setErr(res.error);
+      clear();
+      setStep("done");
+    } catch {
+      setErr("Something went wrong. Please try again.");
+    } finally {
       setState("idle");
-      console.error("proof upload failed:", upErr);
-      return setErr("Could not upload the screenshot. Try again.");
     }
-    const res = await submitProofFn({ data: { code: order.code, path } });
-    setState("idle");
-    if (res.error) return setErr(res.error);
-    clear();
-    setStep("done");
   };
 
   const input =
