@@ -7,7 +7,7 @@ import { btn, SectionTitle } from "@/components/site";
 import logo from "@/assets/gamersteal-logo.png";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: { redirect?: string }) => ({
+  validateSearch: (s: { redirect?: string }): { redirect?: string | undefined } => ({
     redirect:
       typeof s.redirect === "string" && s.redirect.startsWith("/") && !s.redirect.startsWith("//")
         ? s.redirect
