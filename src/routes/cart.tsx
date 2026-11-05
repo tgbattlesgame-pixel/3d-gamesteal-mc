@@ -11,8 +11,12 @@ export const Route = createFileRoute("/cart")({
       { name: "description", content: "Review the ranks and points in your GAMERSTEAL cart." },
       { property: "og:title", content: "Your Cart — GAMERSTEAL Store" },
       { property: "og:description", content: "Review your GAMERSTEAL cart." },
+      { property: "og:url", content: "https://shop.tgadev.online/cart" },
+      { name: "robots", content: "noindex, follow" },
     ],
+    links: [{ rel: "canonical", href: "https://shop.tgadev.online/cart" }],
   }),
+  staticData: { sitemap: false },
   component: CartPage,
 });
 

@@ -9,12 +9,25 @@ import { Crown, LandPlot, Swords, ShoppingCart, Ticket, MessageSquareText, Spark
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "GAMERSTEAL — Survival SMP Store" },
-      { name: "description", content: "Official GAMERSTEAL Survival SMP store. Buy ranks and claim your land. Play at PLAY.TGADEV.ONLINE." },
-      { property: "og:title", content: "GAMERSTEAL — Survival SMP Store" },
-      { property: "og:description", content: "Your land. Your power. Your legacy. Ranks for GAMERSTEAL Survival SMP." },
+      { title: "GAMERSTEAL STORE | Official GAMERSTEAL SMP Store" },
+      { name: "description", content: "Shop the official GAMERSTEAL SMP store for Minecraft ranks, custom ranks and in-game points. Find options for your Survival adventure, claim your land and build your legacy on the GAMERSTEAL Minecraft server." },
+      { property: "og:title", content: "GAMERSTEAL STORE | Official GAMERSTEAL SMP Store" },
+      { property: "og:description", content: "Shop Minecraft ranks, custom ranks and in-game points for the official GAMERSTEAL SMP Survival server." },
+      { property: "og:url", content: "https://shop.tgadev.online/" },
     ],
+    links: [{ rel: "canonical", href: "https://shop.tgadev.online/" }],
+    scripts: [{
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "GAMERSTEAL STORE",
+        alternateName: "GAMERSTEAL",
+        url: "https://shop.tgadev.online/",
+      }),
+    }],
   }),
+  staticData: { sitemap: true },
   component: Index,
 });
 
