@@ -12,8 +12,12 @@ export const Route = createFileRoute("/checkout")({
       { name: "description", content: "Complete your GAMERSTEAL order." },
       { property: "og:title", content: "Checkout — GAMERSTEAL Store" },
       { property: "og:description", content: "Complete your GAMERSTEAL order." },
+      { property: "og:url", content: "https://shop.tgadev.online/checkout" },
+      { name: "robots", content: "noindex, follow" },
     ],
+    links: [{ rel: "canonical", href: "https://shop.tgadev.online/checkout" }],
   }),
+  staticData: { sitemap: false },
   component: Checkout,
 });
 
