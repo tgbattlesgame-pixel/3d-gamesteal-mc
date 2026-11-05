@@ -1,0 +1,5 @@
+- [x] Add branded route metadata, page canonicals, and homepage WebSite JSON-LD.
+- [x] Generate sitemap.xml from public pages and keep cart/checkout out of indexing.
+- [x] Allow crawler access and reference the public sitemap in robots.txt.
+- [x] Verify metadata, sitemap, and robots.txt in the live preview.
+- [ ] Confirm the preview's existing dependency/typecheck issue and report deployment readiness.
