@@ -9,4 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-SEO sitemap URLs are generated from route staticData decisions through src/lib/sitemap.ts and src/routes/sitemap[.]xml.ts, keeping the public URL inventory aligned with page routes.
+The public sitemap is a static XML file at public/sitemap.xml with an explicit application/xml Vercel response header, because the site needs a stable crawlable file.
