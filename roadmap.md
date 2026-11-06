@@ -5,4 +5,4 @@
 - [ ] Confirm the preview's existing dependency/typecheck issue and report deployment readiness.
 - [x] Replace the dynamic sitemap endpoint with a static, valid sitemap.xml in public for Vercel.
 - [x] Replace checkout/payment/order flow with a Discord-ticket-only purchase step; remove any QR/admin UI if present.
-- [ ] Verify sitemap XML and the cart-to-Discord-ticket flow in the live preview.
+- [x] Verify sitemap XML and the cart-to-Discord-ticket flow in the live preview.
