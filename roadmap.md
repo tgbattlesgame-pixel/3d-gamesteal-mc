@@ -3,3 +3,6 @@
 - [x] Allow crawler access and reference the public sitemap in robots.txt.
 - [x] Verify metadata, sitemap, and robots.txt in the live preview.
 - [ ] Confirm the preview's existing dependency/typecheck issue and report deployment readiness.
+- [ ] Replace the dynamic sitemap endpoint with a static, valid sitemap.xml in public for Vercel.
+- [ ] Replace checkout/payment/order flow with a Discord-ticket-only purchase step; remove any QR/admin UI if present.
+- [ ] Verify sitemap XML and the cart-to-Discord-ticket flow in the live preview.
