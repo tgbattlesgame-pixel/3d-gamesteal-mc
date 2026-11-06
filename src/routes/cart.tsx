@@ -24,7 +24,7 @@ function CartPage() {
   const { lines, remove, setQty, total } = useCart();
   return (
     <section className="mx-auto max-w-4xl px-4 py-16">
-      <SectionTitle eyebrow="Checkout" title="YOUR CART" />
+      <SectionTitle eyebrow="Discord ticket" title="YOUR CART" />
       {lines.length === 0 ? (
         <div className="glass rounded-2xl p-10 text-center">
           <p className="text-muted-foreground">Your cart is empty.</p>
@@ -58,7 +58,7 @@ function CartPage() {
           </ul>
           <aside className="glass h-fit rounded-2xl p-6">
             <div className="flex justify-between font-display text-xl"><span>Total</span><span>{formatINR(total)}</span></div>
-            <Link to="/checkout" className={`${btn.primary} mt-6 w-full`}>Checkout</Link>
+            <Link to="/checkout" className={`${btn.primary} mt-6 w-full`}>Create a Discord ticket</Link>
           </aside>
         </div>
       )}
